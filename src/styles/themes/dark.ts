@@ -8,6 +8,11 @@ export default {
 
     background: '#151617',
 
-    text: ''
+    text: '#DAE2EB',
+
+    backgroundInput: '#1F2124',
+
+    blueLight: '#1A7BE2'
+    
   },
 };
