@@ -14,7 +14,6 @@ declare module 'styled-components' {
       backgroundInput: string;
 
       blueLight: string;
-
     },
   }
 }

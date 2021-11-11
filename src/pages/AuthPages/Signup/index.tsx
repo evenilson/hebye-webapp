@@ -3,14 +3,34 @@ import { useBreakpoint } from '../../../hooks/useBreakpoint'
 
 // import LogoHebyeImg from '../../../assets/images/logo-hebye.svg';
 import { Input } from '../../../components/UI/Input';
-import { Button } from '../../../components/UI/Button'
+import { Button, ButtonSiginWithGoogle } from '../../../components/UI/Button'
 import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+
+import { schemaFormSignup } from '../../../utils/schemasYup'; 
+import { useAuth } from '../../../hooks/useAuth';
+import { useState } from 'react';
 
 export function Signup() {
+  const { device } = useBreakpoint();
+  
+  const { register, handleSubmit, formState: { errors }} = useForm({
+    resolver: yupResolver(schemaFormSignup),
+  })
 
-  const { device } = useBreakpoint()
+  const { 
+    registerWithEmailAndPassword, 
+    signInWithGoogle 
+  } = useAuth();
 
+  const [loading, setLoading] = useState(false);
+  
+  const onSubmit = (data: any) => {
+    setLoading(true)
+    registerWithEmailAndPassword(data.email, data.password).finally(() => {setLoading(false)});
+  }
 
   return (
 
@@ -28,24 +48,34 @@ export function Signup() {
               <path fill-rule="evenodd" clip-rule="evenodd" d="M99.4548 61.2556C96.4725 58.7008 94.5077 56.4664 92.1878 54.2268L87.3469 58.6606C89.77 61.2876 97.6839 69.2981 99.2516 70.7987C102.014 68.1189 120.495 49.4729 121.79 47.7555L117.434 43.7452L99.4548 61.2556V61.2556Z" stroke="#FAFCFF" stroke-width="1.30942" stroke-miterlimit="22.9256"/>
               <path fill-rule="evenodd" clip-rule="evenodd" d="M82.827 30.0286L87.0507 30.0311C88.0129 26.8877 88.4799 24.3117 91.2834 21.5448C94.3376 18.5306 95.9647 18.6724 99.2083 17.7535L99.1893 13.7401C89.7627 13.5184 83.2198 20.8536 82.827 30.0286V30.0286Z" stroke="#FAFCFF" stroke-width="1.30942" stroke-miterlimit="22.9256"/>
             </svg>
-
-            {/* <img src={LogoHebyeImg} alt="Logo Hebye" /> */}
           </WaveMobile>
+
           <ContentContainer>
-            <FormContainer>
+            <FormContainer onSubmit={handleSubmit(onSubmit)}>
+              <h1>Inscrever-se</h1>
 
-              <Input name="email" type="email" title="Endereço de E-mail" />
-              <Input name="password" type="password" title="Senha" />
-              <Input name="confim-password" type="password" title="Confirmação de senha" />
-              <Button title="Criar conta" />
+              <ButtonSiginWithGoogle onClick={ () => signInWithGoogle()} />
+              <div className="line"> Ou </div>
 
-              <p>Já possui uma conta? <Link to="/login" >Entre</Link></p>
+              <Input 
+                registerAndErros={ {'register': register, 'errors': errors} }
+                name="email" type="email" title="Endereço de E-mail" 
+              />
+              <Input 
+                registerAndErros={ {'register': register, 'errors': errors} } 
+                name="password" type="password" title="Senha" 
+              />
+              <Input 
+                registerAndErros={ {'register': register, 'errors': errors} } 
+                name="confimPassword" type="password" title="Confirmação de senha" 
+              />
+              <Button title="Criar conta" isLoading={loading} />
+
+              <p>Já possui uma conta? <Link to="/login">Entre</Link></p>
+
             </FormContainer>
-
           </ContentContainer>
         </AuthContainerMobile>
       )
-    
-      
   )
 }

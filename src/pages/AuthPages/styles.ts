@@ -56,12 +56,14 @@ export const FormContainer = styled.form`
   align-items: center;
   justify-content: space-between;
 
-  * {
-    margin-bottom: .7rem;
+  > *  {
+    margin-bottom: 1rem;
   }
 
   p {
-    margin-top: 2rem;
+    &:last-child{
+      margin-top: 5rem;
+    }
 
     a {
       font-weight: 600;

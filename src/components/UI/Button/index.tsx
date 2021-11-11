@@ -6,14 +6,21 @@ interface ButtonProps {
   disabled?: boolean;
   isLoading?: boolean;
   type?: "submit" | "button" | "reset" | undefined;
-
+  secondary?: boolean;
   title?: string;
   onChange?: (value: string) => void;
 }
 
+interface ButtonSimpleProps {
+  onclick: () => void;
+  disabled?: boolean;
+  title: string;
+  secondary?: boolean;
+}
+
 interface ButtonSigninWithGoogle {
-  onClick: () => Promise<void>;
-  isLoading: boolean;
+  onClick: () => void;
+  isLoading?: boolean;
 }
 
 export function Button({
@@ -21,13 +28,27 @@ export function Button({
   title,
   disabled = false,
   type = 'submit',
+  secondary = false,
 }: ButtonProps) {
 
   return (
-    <ButtonStyle type={type} className={isLoading ? 'loading' : ''} disabled={disabled} >
+    <ButtonStyle type={type} className={isLoading ? secondary ? 'loading secondary' : 'loading' : ''} disabled={disabled || isLoading} >
       {title}
     </ButtonStyle>
   );
+}
+
+export function ButtonSimple({
+  onclick,
+  disabled = false,
+  title,
+  secondary = false,
+}: ButtonSimpleProps){
+  return (
+    <ButtonStyle disabled={disabled} onClick={() => onclick()} className={secondary ? 'secondary' : ''}>
+      {title}
+    </ButtonStyle>
+  )
 }
 
 export function ButtonSiginWithGoogle({
