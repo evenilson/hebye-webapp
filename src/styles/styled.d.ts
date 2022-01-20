@@ -9,7 +9,11 @@ declare module 'styled-components' {
       secondary: string,
   
       background: string,
-      text: string
+      text: string,
+
+      backgroundInput: string;
+
+      blueLight: string;
     },
   }
 }

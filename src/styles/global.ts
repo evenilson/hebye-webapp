@@ -10,9 +10,29 @@ export default createGlobalStyle`
   body {
     background: ${props => props.theme.colors.background};
 
-    font-size: 14px;
     color: ${props => props.theme.colors.text};
-
-    font-family: Sans-serif;
   }
+
+  body, input, textarea, button {
+    font: 300 1rem 'Montserrat', sans-serif;
+  }
+  
+  a {
+    text-decoration: none;
+    color: ${props => props.theme.colors.blueLight};
+
+  }
+
+  @media(max-width: 1080px) {
+    html {
+        font-size: 93.75%;
+    }
+  }
+
+  @media(max-width: 720px) {
+      html {
+          font-size: 87.5%;
+      }
+  }
+
 `;

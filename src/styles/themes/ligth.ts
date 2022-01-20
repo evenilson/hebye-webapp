@@ -4,10 +4,13 @@ export default {
 
   colors: {
     primary: '',
-    secondary: '',
+    secondary: '#F27405',
 
     background: '#FAFCFF',
+    text: '#071D36',
+    
+    backgroundInput: '#DAE2EB',
 
-    text: ''
+    blueLight: '#1A7BE2',
   },
 };

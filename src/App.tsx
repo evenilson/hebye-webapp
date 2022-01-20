@@ -1,28 +1,11 @@
-
-import GlobalStyle from './styles/global';
-
-import light from './styles/themes/ligth';
-import dark from './styles/themes/dark';
-
-
-
-import { DefaultTheme, ThemeProvider } from 'styled-components';
-
-import usePersistedState from './utils/usePersistedState';
+import { Routes } from './Routes/routes'
 
 function App() {
 
-  const [theme, setTheme] = usePersistedState<DefaultTheme>('theme', light)
 
-  const toggleTheme = () => {
-    setTheme(theme.title === 'light' ? dark : light);
-  }
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <button onClick={toggleTheme} >trocar de tema</button>
-    </ThemeProvider>
+    <Routes/>
   );
 }
 
